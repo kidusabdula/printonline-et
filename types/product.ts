@@ -1,18 +1,30 @@
 // types/product.ts
 export interface Product {
-    id: string;
+    id: number;
     name: string;
+    originalPrice?: number;
     description: string;
     price: number;
     category: string;
     subcategory?: string;
-    image: string;
-    images?: string[];
+    image?: string;
+    images: string[];
     tags?: string[];
+    badge?: string;
+    features?: string[];
+    rating: number;
+    reviews: number;
+    designStyles: string[];
+    templates: string[];
+    specifications: {
+      label: string;
+      value: string;
+    }[];
     inStock: boolean;
     stockQuantity?: number;
     sku: string;
-    attributes?: Record<string, any>;
+    discount?: number;
+    attributes?: Record<string, unknown>;
   }
   
   export interface ProductCategory {
@@ -37,7 +49,7 @@ export interface Product {
     product: Product;
     quantity: number;
     price: number;
-    customizations?: Record<string, any>;
+    customizations?: Record<string, unknown>;
   }
   
   export interface Order {
@@ -61,7 +73,7 @@ export interface Product {
     product: Product;
     quantity: number;
     price: number;
-    customizations?: Record<string, any>;
+    customizations?: Record<string, unknown>;
   }
   
   export interface Address {

@@ -114,6 +114,7 @@ const Header = () => {
         {/* ===== BOTTOM ROW: MAIN NAV (six items, no Home) ===== */}
         <div className="hidden md:flex items-center justify-between py-3 border-t border-border/40">
           <nav className="flex items-center gap-6">
+            <Link href="/all-products" className="text-foreground hover:text-primary transition-colors font-medium">All Products</Link>
             <Link href="/digital-paper-prints" className="text-foreground hover:text-primary transition-colors">Digital Paper Prints</Link>
             <Link href="/signage-solutions" className="text-foreground hover:text-primary transition-colors">Signage Solutions</Link>
             <Link href="/flex-banners" className="text-foreground hover:text-primary transition-colors">Flex Banners</Link>
@@ -134,6 +135,7 @@ const Header = () => {
         {isMenuOpen && (
           <nav className="md:hidden py-4 border-t border-border/40">
             <div className="flex flex-col space-y-2">
+              <Link href="/all-products" className="py-2 px-3 rounded-md hover:bg-secondary/10 transition font-medium">All Products</Link>
               <Link href="/digital-paper-prints" className="py-2 px-3 rounded-md hover:bg-secondary/10 transition">Digital Paper Prints</Link>
               <Link href="/signage-solutions" className="py-2 px-3 rounded-md hover:bg-secondary/10 transition">Signage Solutions</Link>
               <Link href="/flex-banners" className="py-2 px-3 rounded-md hover:bg-secondary/10 transition">Flex Banners</Link>

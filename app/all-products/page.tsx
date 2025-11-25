@@ -5,6 +5,7 @@ import { useState, useMemo } from 'react';
 import { motion } from 'framer-motion';
 import { Search, Filter, Grid, List, ChevronRight, Package, Sparkles } from 'lucide-react';
 import Image from 'next/image';
+import Link from 'next/link';
 
 // Product data organized by letter
 const productsByLetter = {
@@ -169,14 +170,13 @@ const ProductCard = ({ product, index, viewMode }: ProductCardProps) => {
             transition={{ duration: 0.3 }}
             className="absolute bottom-4 left-4 right-4"
           >
-            <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
+            <Link
+              href={`/products/${product.toLowerCase().replace(/\s+/g, '-').replace(/&/g, 'and').replace(/[^a-z0-9-]/g, '')}`}
               className="w-full btn-pana text-sm py-3 inline-flex items-center justify-center"
             >
               View Details
               <ChevronRight className="h-4 w-4 ml-2" />
-            </motion.button>
+            </Link>
           </motion.div>
         )}
 

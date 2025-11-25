@@ -10,6 +10,7 @@ import { useCart } from '@/context/CartContext';
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const { theme, setTheme } = useTheme();
   const [query, setQuery] = useState("");
   const { getCartCount } = useCart();
@@ -40,9 +41,23 @@ const Header = () => {
     };
   }, [getCartCount]);
   const toggleMenu = () => setIsMenuOpen((s) => !s);
+  useEffect(() => {
+    const onScroll = () => {
+      setScrolled(window.scrollY > 8);
+    };
+    window.addEventListener('scroll', onScroll, { passive: true } as any);
+    onScroll();
+    return () => {
+      window.removeEventListener('scroll', onScroll as any);
+    };
+  }, []);
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 supports-backdrop-filter:bg-background/60">
+    <header className={`sticky top-0 z-50 w-full transition-all duration-300 ${
+      scrolled
+        ? 'bg-background/85 backdrop-blur-sm border-b border-border/30 shadow'
+        : 'bg-background/60 supports-backdrop-filter:bg-background/60 backdrop-blur border-b border-transparent'
+    }`}>
       <div className="container mx-auto px-4">
         {/* ===== TOP ROW ===== */}
         <div className="flex items-center justify-between py-3">

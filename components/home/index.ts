@@ -6,6 +6,8 @@ import SpecialOffers from "./SpecialOffers";
 import Testimonials from "./Testimonials";
 import TopSellers from "./TopSellers";
 
+import HowItWorks from "./HowItWorks";
+
 export {
   CategoryShowcase,
   FeaturedProducts,
@@ -14,4 +16,5 @@ export {
   SpecialOffers,
   Testimonials,
   TopSellers,
+  HowItWorks,
 };

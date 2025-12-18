@@ -1,6 +1,6 @@
 "use client";
 
-import { Star, ShoppingCart, Heart, Eye } from "lucide-react";
+import { Star, ShoppingCart, Heart, Eye, ArrowRight } from "lucide-react";
 import Image from "next/image";
 import { motion } from "framer-motion";
 
@@ -59,135 +59,134 @@ const TopSellers = () => {
   ];
 
   return (
-    <section className="py-16 hidden lg:block">
+    <section className="py-24 bg-secondary/5">
       <div className="container mx-auto px-4">
-        <div className="text-center mb-12">
-          <h2 className="text-4xl font-extrabold text-foreground mb-4">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="text-center mb-16"
+        >
+          <h2 className="text-4xl md:text-5xl font-extrabold text-foreground mb-4">
             Top Selling Products
           </h2>
+          <div className="w-20 h-1.5 bg-primary mx-auto rounded-full mb-6"></div>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
             Discover our most popular printing solutions trusted by thousands of
-            businesses
+            businesses for their quality and impact.
           </p>
-        </div>
+        </motion.div>
 
-        <div className="grid grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
           {products.map((product, idx) => {
             const savings = product.originalPrice - product.price;
             return (
               <motion.article
                 key={product.id}
-                initial={{ opacity: 0, y: 8 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: idx * 0.06, duration: 0.45, type: "spring", stiffness: 120 }}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: idx * 0.1, duration: 0.5 }}
+                className="group relative"
               >
-                <article
-                className="group relative bg-card rounded-xl overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-300"
-                tabIndex={0}
-              >
-                {/* Badge */}
-                <div className="absolute top-4 left-4 z-10">
-                  <span className="bg-linear-to-r from-primary to-primary/80 text-white text-xs font-semibold px-3 py-1 rounded-full">
-                    {product.badge}
-                  </span>
-                </div>
-
-                {/* Wishlist */}
-                <button
-                  aria-label="Add to wishlist"
-                  className="absolute top-4 right-4 z-10 bg-white/80 backdrop-blur-sm p-2 rounded-full opacity-0 group-hover:opacity-100 transition-opacity"
-                >
-                  <Heart className="h-4 w-4 text-gray-600 hover:text-red-500 transition-colors" />
-                </button>
-
-                {/* Image area with parallax on hover */}
-                <div className="relative h-64 overflow-hidden">
-                  <motion.div
-                    whileHover={{ scale: 1.06 }}
-                    transition={{ type: "spring", stiffness: 160, damping: 14 }}
-                  >
-                    <div className="absolute inset-0">
-                    <Image src={product.image} alt={product.name} fill className="object-cover" />
-                    <div className="absolute inset-0 bg-linear-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
-                    </div>
-                  </motion.div>
-                </div>
-
-                {/* Info */}
-                <div className="p-4">
-                  <p className="text-xs text-muted-foreground mb-1">{product.category}</p>
-                  <h3 className="font-semibold text-foreground mb-2 group-hover:text-primary transition-colors">
-                    {product.name}
-                  </h3>
-
-                  {/* Rating */}
-                  <div className="flex items-center space-x-2 mb-3">
-                    <div className="flex items-center">
-                      {[...Array(5)].map((_, i) => (
-                        <Star
-                          key={i}
-                          className={`h-4 w-4 ${i < Math.floor(product.rating) ? "fill-yellow-400 text-yellow-400" : "text-gray-300"}`}
-                        />
-                      ))}
-                    </div>
-                    <span className="text-sm text-muted-foreground">
-                      {product.rating} ({product.reviews})
+                <div className="relative bg-card rounded-2xl overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-300 border border-border/40 h-full flex flex-col">
+                  {/* Badge */}
+                  <div className="absolute top-4 left-4 z-10">
+                    <span className="bg-primary text-primary-foreground text-[10px] font-bold px-3 py-1.5 rounded-full uppercase tracking-wide shadow-md">
+                      {product.badge}
                     </span>
                   </div>
 
-                  {/* Price */}
-                  <div className="flex items-baseline justify-between mb-3">
-                    <div>
-                      <div className="flex items-center gap-3">
-                        <span className="text-2xl font-bold text-foreground">{formatter.format(product.price)}</span>
-                        <span className="text-sm text-muted-foreground line-through">{formatter.format(product.originalPrice)}</span>
-                      </div>
-                      {savings > 0 && (
-                        <p className="text-sm text-success/90 mt-1">
-                          Save {formatter.format(savings)}
-                        </p>
-                      )}
+                  {/* Wishlist */}
+                  <button
+                    aria-label="Add to wishlist"
+                    className="absolute top-4 right-4 z-10 bg-white/90 backdrop-blur-sm p-2 rounded-full opacity-0 group-hover:opacity-100 transition-all duration-300 hover:bg-white hover:text-red-500 shadow-sm"
+                  >
+                    <Heart className="h-4 w-4" />
+                  </button>
+
+                  {/* Image area */}
+                  <div className="relative h-64 overflow-hidden bg-gray-100">
+                    <Image
+                      src={product.image}
+                      alt={product.name}
+                      fill
+                      className="object-cover group-hover:scale-110 transition-transform duration-700 ease-out"
+                    />
+
+                    {/* Overlay Actions */}
+                    <div className="absolute inset-x-0 bottom-0 p-4 translate-y-0 md:translate-y-full md:group-hover:translate-y-0 transition-transform duration-300 bg-black/60 md:bg-linear-to-t md:from-black/60 md:to-transparent flex gap-2 justify-center pb-6">
+                      <button
+                        className="bg-white text-black p-2 rounded-full hover:bg-primary hover:text-primary-foreground transition-colors shadow-lg"
+                        aria-label="Quick View"
+                      >
+                        <Eye className="h-5 w-5" />
+                      </button>
                     </div>
-                    <div className="text-right text-xs text-muted-foreground">Inc. VAT</div>
                   </div>
 
-                  {/* Actions with micro interactions */}
-                  <div className="flex gap-2">
-                    <motion.button
-                      whileTap={{ scale: 0.98 }}
-                      whileHover={{ translateY: -3 }}
-                      className="flex-1 btn-pana text-sm p-2 inline-flex items-center justify-center"
-                      aria-label={`Add ${product.name} to cart`}
-                    >
-                      <ShoppingCart className="h-4 w-4 mr-2" />
-                      Add to Cart
-                    </motion.button>
+                  {/* Info */}
+                  <div className="p-5 flex flex-col grow">
+                    <p className="text-xs text-muted-foreground mb-2 font-medium uppercase tracking-wider">
+                      {product.category}
+                    </p>
+                    <h3 className="font-bold text-lg text-foreground mb-2 group-hover:text-primary transition-colors line-clamp-2">
+                      {product.name}
+                    </h3>
 
-                    <motion.button
-                      whileTap={{ scale: 0.98 }}
-                      className="p-2 border border-border rounded-lg hover:bg-secondary transition-colors"
-                      aria-label={`Quick view ${product.name}`}
-                    >
-                      <Eye className="h-4 w-4" />
-                    </motion.button>
+                    {/* Rating */}
+                    <div className="flex items-center space-x-1 mb-4">
+                      {[...Array(5)].map((_, i) => (
+                        <Star
+                          key={i}
+                          className={`h-3.5 w-3.5 ${
+                            i < Math.floor(product.rating)
+                              ? "fill-yellow-400 text-yellow-400"
+                              : "text-gray-300"
+                          }`}
+                        />
+                      ))}
+                      <span className="text-xs text-muted-foreground ml-2">
+                        ({product.reviews})
+                      </span>
+                    </div>
+
+                    <div className="mt-auto pt-4 border-t border-border/50 flex items-end justify-between">
+                      <div>
+                        {savings > 0 && (
+                          <span className="text-xs text-muted-foreground line-through block mb-1">
+                            {formatter.format(product.originalPrice)}
+                          </span>
+                        )}
+                        <span className="text-xl font-bold text-primary block">
+                          {formatter.format(product.price)}
+                        </span>
+                      </div>
+
+                      <button
+                        className="bg-secondary p-2.5 rounded-xl hover:bg-primary hover:text-primary-foreground transition-all duration-300 group-hover:shadow-lg"
+                        aria-label="Add to Cart"
+                      >
+                        <ShoppingCart className="h-5 w-5" />
+                      </button>
+                    </div>
                   </div>
                 </div>
-              </article>
               </motion.article>
             );
           })}
         </div>
 
-        <div className="text-center mt-8">
+        <div className="text-center mt-16">
           <motion.a
-            whileHover={{ translateY: -3 }}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
             href="/products"
-            className="btn-pana inline-flex items-center p-4"
+            className="btn-pana inline-flex items-center px-8 py-3 rounded-full text-base font-semibold shadow-lg shadow-primary/20"
           >
-            View All Products
-            <svg className="ml-2 h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-            </svg>
+            View All Best Sellers
+            <ArrowRight className="ml-2 h-5 w-5" />
           </motion.a>
         </div>
       </div>
